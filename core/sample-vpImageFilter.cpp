@@ -1,9 +1,13 @@
 #include <visp3/core/vpImage.h>
 #include <visp3/core/vpImageFilter.h>
 
+#ifdef ENABLE_VISP_NAMESPACE
+using namespace VISP_NAMESPACE_NAME;
+#endif
+
 int main()
 {
-#if (VISP_HAVE_OPENCV_VERSION >= 0x020100) && (VISP_HAVE_OPENCV_VERSION < 0x030000) // Cany uses OpenCV >=2.1.0 and < 3.0.0
+#if defined(VISP_HAVE_OPENCV) && defined(HAVE_OPENCV_IMGPROC)
   // Constants for the Canny operator.
   const unsigned int gaussianFilterSize = 5;
   const double thresholdCanny = 15;
@@ -13,11 +17,10 @@ int main()
   vpImage<unsigned char> Isrc;
   vpImage<unsigned char> Icanny;
 
-  //First grab the source image Isrc.
+  // First grab the source image Isrc.
 
-  //Apply the Canny edge operator and set the Icanny image.
+  // Apply the Canny edge operator and set the Icanny image.
   vpImageFilter::canny(Isrc, Icanny, gaussianFilterSize, thresholdCanny, apertureSobel);
 #endif
   return (0);
 }
-

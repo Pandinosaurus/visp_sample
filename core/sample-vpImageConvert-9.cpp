@@ -2,9 +2,18 @@
 #include <visp3/core/vpImageConvert.h>
 #include <visp3/io/vpImageIo.h>
 
+
+#if defined(HAVE_OPENCV_IMGCODECS)
+#include <opencv2/imgcodecs.hpp>
+#endif
+
+#ifdef ENABLE_VISP_NAMESPACE
+using namespace VISP_NAMESPACE_NAME;
+#endif
+
 int main()
 {
-#if defined(VISP_HAVE_OPENCV) && (VISP_HAVE_OPENCV_VERSION >= 0x020100)
+#if defined(VISP_HAVE_OPENCV) && defined(HAVE_OPENCV_IMGPROC) && defined(HAVE_OPENCV_IMGCODECS)
   vpImage<vpRGBa> Ic; // A color image
   cv::Mat Ip;
 
@@ -16,5 +25,3 @@ int main()
   // ...
 #endif
 }
-
-

@@ -5,6 +5,9 @@
 #include <visp3/gui/vpDisplayGDI.h>
 #include <visp3/gui/vpDisplayD3D.h>
 
+#ifdef ENABLE_VISP_NAMESPACE
+using namespace VISP_NAMESPACE_NAME;
+#endif
 
 int main()
 {
@@ -23,7 +26,7 @@ int main()
   d = new vpDisplayGDI;
 #elif defined(VISP_HAVE_D3D9)
   d = new vpDisplayD3D;
-#elif defined(VISP_HAVE_OPENCV)
+#elif defined(HAVE_OPENCV_HIGHGUI)
   d = new vpDisplayOpenCV;
 #endif
 
@@ -42,11 +45,11 @@ int main()
   vpDisplay::flush(I);
 
   // Updates the color image with the original loaded image and the overlay
-  vpDisplay::getImage(I, Ioverlay) ;
+  vpDisplay::getImage(I, Ioverlay);
 
   // Write the color image on the disk
   std::string ofilename("overlay.ppm");
-  vpImageIo::writePPM(Ioverlay, ofilename) ;
+  vpImageIo::writePPM(Ioverlay, ofilename);
 
   // Wait for a click in the display window
   vpDisplay::getClick(I);

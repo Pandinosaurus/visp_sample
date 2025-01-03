@@ -5,6 +5,10 @@
 #include <visp3/gui/vpDisplayGDI.h>
 #include <visp3/gui/vpDisplayD3D.h>
 
+#ifdef ENABLE_VISP_NAMESPACE
+using namespace VISP_NAMESPACE_NAME;
+#endif
+
 int main()
 {
   try {
@@ -29,17 +33,17 @@ int main()
     d = new vpDisplayGDI;
 #elif defined(VISP_HAVE_D3D9)
     d = new vpDisplayD3D;
-#elif defined(VISP_HAVE_OPENCV)
+#elif defined(HAVE_OPENCV_HIGHGUI)
     d = new vpDisplayOpenCV;
 #endif
 
-    // Initialize the display with the image I. Display and image are
-    // now link together.
+        // Initialize the display with the image I. Display and image are
+        // now link together.
 #ifdef VISP_HAVE_DISPLAY
     d->init(I);
 #endif
 
-    // Specify the window location
+        // Specify the window location
     vpDisplay::setWindowPosition(I, 400, 100);
 
     // Set the display window title
@@ -68,7 +72,7 @@ int main()
     std::cout << "Check keyboard events..." << std::endl;
     char key[10];
     bool ret;
-    for (int i=0; i< 200; i++) {
+    for (int i = 0; i < 200; i++) {
       bool ret = vpDisplay::getKeyboardEvent(I, key, false);
       if (ret)
         std::cout << "keyboard event: key: " << "\"" << key << "\"" << std::endl;
@@ -82,7 +86,7 @@ int main()
     if (ret)
       std::cout << "key: " << "\"" << key << "\"" << std::endl;
 
-    // Wait for a click in the display window
+  // Wait for a click in the display window
     std::cout << "Wait for a button click..." << std::endl;
     vpDisplay::getClick(I);
 
@@ -90,5 +94,5 @@ int main()
     delete d;
 #endif
   }
-  catch(...) {}
+  catch (...) { }
 }

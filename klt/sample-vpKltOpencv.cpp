@@ -3,23 +3,26 @@
 #include <visp3/klt/vpKltOpencv.h>
 #include <visp3/core/vpImageConvert.h>
 
+#ifdef ENABLE_VISP_NAMESPACE
+using namespace VISP_NAMESPACE_NAME;
+#endif
+
 int main()
 {
-#if (VISP_HAVE_OPENCV_VERSION >= 0x010100) && (VISP_HAVE_OPENCV_VERSION < 0x020408)
+#if defined(VISP_HAVE_OPENCV) && defined(HAVE_OPENCV_HIGHGUI) && defined(HAVE_OPENCV_IMGPROC) && defined(HAVE_OPENCV_VIDEO)
   vpImage<unsigned char> I;
-  IplImage* Icv = NULL;
+  cv::Mat Icv;
   vpKltOpencv klt;
 
-  //First grab the initial image I
+  // First grab the initial image I
 
-  //Convert the image I to the IplImage format.
+  // Convert the image I to the IplImage format.
   vpImageConvert::convert(I, Icv);
 
-  //Initialise the tracking on the whole image.
-  klt.initTracking(Icv, NULL);
+  // Initialise the tracking on the whole image.
+  klt.initTracking(Icv);
 
-  while(true)
-  {
+  while (true) {
     // Grab a new image and convert it to the OpenCV format.
     vpImageConvert::convert(I, Icv);
 
@@ -29,11 +32,8 @@ int main()
     // Display the features tracked at the current iteration.
     klt.display(I);
   }
-
-  cvReleaseImage(&Icv);
 #else
   std::cout << "vpKltOpencv requires ViSP with OpenCV." << std::endl;
 #endif
   return(0);
 }
-

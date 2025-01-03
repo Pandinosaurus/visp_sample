@@ -2,6 +2,10 @@
 #include <visp3/core/vpHomogeneousMatrix.h>
 #include <visp3/core/vpMatrix.h>
 
+#ifdef ENABLE_VISP_NAMESPACE
+using namespace VISP_NAMESPACE_NAME;
+#endif
+
 int main()
 {
   vpHomogeneousMatrix cdMc;
@@ -11,9 +15,9 @@ int main()
   vpFeatureTranslation s(vpFeatureTranslation::cdMc);
   s.buildFrom(cdMc); // Initialization of the feature
 
-  // Creation of the desired feature s*. By default this feature is 
+  // Creation of the desired feature s*. By default this feature is
   // initialized to zero
-  vpFeatureTranslation s_star(vpFeatureTranslation::cdMc); 
+  vpFeatureTranslation s_star(vpFeatureTranslation::cdMc);
 
   // Compute the interaction matrix for the translation feature
   vpMatrix L = s.interaction();

@@ -3,14 +3,18 @@
 #include <visp3/core/vpRotationMatrix.h>
 #include <visp3/core/vpRxyzVector.h>
 
+#ifdef ENABLE_VISP_NAMESPACE
+using namespace VISP_NAMESPACE_NAME;
+#endif
+
 int main()
 {
   vpRxyzVector rxyz;
 
   // Initialise the Euler angles
-  rxyz[0] = vpMath::rad( 45.f); // phi   angle in rad around x axis
+  rxyz[0] = vpMath::rad(45.f); // phi   angle in rad around x axis
   rxyz[1] = vpMath::rad(-30.f); // theta angle in rad around y axis
-  rxyz[2] = vpMath::rad( 90.f); // psi   angle in rad around z axis
+  rxyz[2] = vpMath::rad(90.f); // psi   angle in rad around z axis
 
   // Construct a rotation matrix from the Euler angles
   vpRotationMatrix R(rxyz);

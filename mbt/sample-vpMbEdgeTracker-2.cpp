@@ -5,6 +5,10 @@
 #include <visp3/io/vpImageIo.h>
 #include <visp3/mbt/vpMbEdgeTracker.h>
 
+#ifdef ENABLE_VISP_NAMESPACE
+using namespace VISP_NAMESPACE_NAME;
+#endif
+
 int main()
 {
   vpMbEdgeTracker tracker; // Create a model based tracker.
@@ -17,18 +21,16 @@ int main()
 
 #if defined VISP_HAVE_X11
   vpDisplayX display;
-  display.init(I,100,100,"Mb Edge Tracker");
+  display.init(I, 100, 100, "Mb Edge Tracker");
 #endif
 
-#if defined VISP_HAVE_PUGIXML
   tracker.loadConfigFile("cube.xml"); // Load the configuration of the tracker
-#endif
   tracker.getCameraParameters(cam); // Get the camera parameters used by the tracker (from the configuration file).
   // load the 3d model, to read .wrl model coin is required, if coin is not installed
   // .cao file can be used.
   tracker.loadModel("cube.cao");
 
-  while(true){
+  while (true) {
     // acquire a new image
     // Get the pose using any method
     vpDisplay::display(I);

@@ -1,13 +1,16 @@
 #include <visp3/io/vpImageIo.h>
 #include <visp3/gui/vpDisplayOpenCV.h>
 
+#ifdef ENABLE_VISP_NAMESPACE
+using namespace VISP_NAMESPACE_NAME;
+#endif
+
 int main()
 {
-#if defined(VISP_HAVE_OPENCV) && (VISP_HAVE_OPENCV_VERSION < 0x030000)
+#if defined(VISP_HAVE_OPENCV) && defined(HAVE_OPENCV_HIGHGUI)
   vpImage<unsigned char> I; // Grey level image
 
   // Read an image in PGM P5 format
-  //vpImageIo::readPGM(I, "/local/soft/ViSP/ViSP-images/Klimt/Klimt.pgm");
   vpImageIo::readPGM(I, "/tmp/Klimt.pgm");
 
   vpDisplayOpenCV d;
@@ -41,7 +44,7 @@ int main()
   std::cout << "Check keyboard events..." << std::endl;
   char key[10];
   bool ret;
-  for (int i=0; i< 200; i++) {
+  for (int i = 0; i < 200; i++) {
     bool ret = vpDisplay::getKeyboardEvent(I, key, false);
     if (ret)
       std::cout << "keyboard event: key: " << "\"" << key << "\"" << std::endl;
